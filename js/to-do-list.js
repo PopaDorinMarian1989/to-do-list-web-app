@@ -15,15 +15,16 @@ window.ToDoList = {
         });
 
     },
-    
+
     createItem: function () {
         let descriptionValue = $("#description-field").val();
         let deadlineValue = $("#deadline-field").val();
         var requestBody = {
             description: descriptionValue,
-            deadline : deadlineValue,
+            deadline: deadlineValue,
         };
-        $.ajax({url: ToDoList.API_URL,
+        $.ajax({
+            url: ToDoList.API_URL,
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(requestBody)
@@ -43,7 +44,7 @@ window.ToDoList = {
     getItemTableRow: function (item) {
         // spread(...)
         var deadline = new Date(...item.deadline).toLocaleDateString("ro");
-       /// ternary operator
+        /// ternary operator
         var checkedAttribute = item.done ? "checked" : "";
 
         return `<tr>
@@ -56,12 +57,12 @@ window.ToDoList = {
 
     },
     bindEvents: function () {
-       $("#create-item-form").submit(function (event) {
-           event.preventDefault();
-           ToDoList.createItem();
+        $("#create-item-form").submit(function (event) {
+            event.preventDefault();
+            ToDoList.createItem();
 
-       })
-        
+        })
+
     }
 
 

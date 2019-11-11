@@ -15,6 +15,23 @@ window.ToDoList = {
         });
 
     },
+    
+    createItem: function () {
+        let descriptionValue = $("#description-field").val();
+        let deadlineValue = $("#deadline-field").val();
+        var requestBody = {
+            description: descriptionValue,
+            deadline : deadlineValue,
+        };
+        $.ajax({url: ToDoList.API_URL,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(requestBody)
+        }).done(function () {
+            ToDoList.getItems()
+
+        })
+    },
     dispayItems: function (items) {
         var tableContent = "";
 
@@ -37,9 +54,18 @@ window.ToDoList = {
                </a></td>
         </tr>`
 
+    },
+    bindEvents: function () {
+       $("#create-item-form").submit(function (event) {
+           event.preventDefault();
+           ToDoList.createItem();
+
+       })
+        
     }
 
 
 };
 
 ToDoList.getItems();
+ToDoList.bindEvents();
